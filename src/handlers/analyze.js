@@ -1,3 +1,4 @@
+import { getIdFromUrl } from '../services/youtube';
 import { parseRequest, success, error } from '../../helpers/general';
 
 module.exports.analyze = async evt => {
@@ -12,6 +13,10 @@ module.exports.analyze = async evt => {
     if (req.pass !== process.env.PASS) {
         return error('Incorrect password.', 401);
     }
+
+    const videoId = getIdFromUrl(req.url);
+
+    
 
     return success({ message: 'analyzed!' });
 };
