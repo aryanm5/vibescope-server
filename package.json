@@ -1,0 +1,15 @@
+{
+  "name": "vibescope-server",
+  "version": "1.0.0",
+  "description": "Vibescope server in Node.js",
+  "main": "index.js",
+  "repository": "https://github.com/aryanm5/vibescope-server.git",
+  "author": "Aryan Mittal",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "serverless-domain-manager": "^7.0.4",
+    "serverless-plugin-optimize": "^4.2.1-rc.1",
+    "serverless-stage-manager": "^1.0.5"
+  }
+}

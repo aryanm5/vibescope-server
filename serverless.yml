@@ -1,0 +1,79 @@
+service: vibescope-server
+frameworkVersion: '3'
+
+plugins:
+  - serverless-stage-manager
+  - serverless-domain-manager
+  - serverless-plugin-optimize
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  architecture: arm64
+  httpApi:
+    disableDefaultEndpoint: true
+    shouldStartNameWithService: true
+  stage: ${opt:stage, 'dev'}
+  environment:
+    STAGE: ${self:provider.stage}
+    PASS: ${self:custom.env.pass}
+  iam: # permissions for functions
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - apigateway:*
+            - cloudwatch:*
+          Resource: '*'
+
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - README.md
+
+functions:
+  updateGroups:
+    handler: src/handlers/private/updateGroups.updateGroups
+    events:
+      - httpApi:
+          path: /updateGroups
+          method: post
+  updateTabs:
+    handler: src/handlers/public/updateTabs.updateTabs
+    events:
+      - httpApi:
+          path: /updateTabs
+          method: post
+  fetchGroups:
+    handler: src/handlers/public/fetchGroups.fetchGroups
+    events:
+      - httpApi:
+          path: /fetchGroups
+          method: get
+  fetchTabs:
+    handler: src/handlers/private/fetchTabs.fetchTabs
+    events:
+      - httpApi:
+          path: /fetchTabs
+          method: get
+
+
+custom:
+  optimize:
+    global: true # Minifies node_modules
+  stages:
+    - dev
+    - prod
+  env: ${file(env/${self:provider.stage}.yml)}
+  customDomain:
+    domainName: api.mittaldev.com
+    stage: ${self:provider.stage}
+    basePath: ${self:custom.env.basePath}
+    certificateName: '*.mittaldev.com'
+    createRoute53Record: true
+    endpointType: 'regional'
+    securityPolicy: tls_1_2
+    autoDomain: false
+    apiType: http
