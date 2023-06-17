@@ -40,6 +40,12 @@ functions:
       - httpApi:
           path: /ping
           method: get
+  analyze:
+    handler: src/handlers/analyze.analyze
+    events:
+      - httpApi:
+          path: /analyze
+          method: post
 
 
 custom:
