@@ -1,5 +1,6 @@
 import { getIdFromUrl, getComments, getVideoInfo } from '../services/youtube';
 import { parseRequest, success, error } from '../helpers/general';
+import { post } from '../services/axiosConfig';
 
 module.exports.analyze = async evt => {
 
@@ -25,6 +26,16 @@ module.exports.analyze = async evt => {
     }
 
     //send comments to flask here
+    let analysis;
+    try {
+        analysis = (await post('/videoanalysis', {
+            comments
+        })).data;
+    } catch (err) {
+        console.error(err);
+        return error(err);
+    }
+    console.log(`Response: ${JSON.stringify(analysis, null, 2)}`);
 
     let video;
     try {
@@ -45,5 +56,6 @@ module.exports.analyze = async evt => {
             commentCount: video.statistics.commentCount,
         },
         comments,
+        analysis,
     });
 };

@@ -13,6 +13,7 @@
     "serverless-stage-manager": "^1.0.5"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "google-auth-library": "^8.8.0",
     "googleapis": "^118.0.0"
   }
