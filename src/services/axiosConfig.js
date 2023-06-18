@@ -1,11 +1,9 @@
 import axiosPackage from 'axios';
 
 
-const DEV = true;
-
 
 const axios = axiosPackage.create({
-    baseURL: `https://api.mittaldev.com/voluntime${DEV ? '-dev' : ''}/`,
+    baseURL: `https://vibescope-server-87247abcc671.herokuapp.com/`,
     headers: {},
     validateStatus: () => true
 });

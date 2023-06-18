@@ -41,6 +41,7 @@ functions:
       - httpApi:
           path: /analyze
           method: post
+    timeout: 30
 
 
 custom:
