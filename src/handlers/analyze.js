@@ -38,7 +38,7 @@ module.exports.analyze = async evt => {
         video: {
             title: video.snippet.title,
             publishedAt: video.snippet.publishedAt,
-            thumbnail: video.snippet.thumbnail.maxres,
+            thumbnail: video.snippet.thumbnails.maxres,
             channelTitle: video.snippet.channelTitle,
             viewCount: video.statistics.viewCount,
             likeCount: video.statistics.likeCount,
