@@ -24,7 +24,7 @@ const getComments = async id => {
         textFormat: 'plainText',
     });
 
-    return response.data.items.map(c => c.snippet.topLevelComment.snippet.textDisplay);
+    return response.data.items.map(c => c.snippet.topLevelComment.snippet.textDisplay.replace(/\*+/g, '').replace(/\n+/g, ''));
 };
 
 export { getIdFromUrl, getComments };
