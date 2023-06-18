@@ -27,4 +27,16 @@ const getComments = async id => {
     return response.data.items.map(c => c.snippet.topLevelComment.snippet.textDisplay.replace(/\*+/g, '').replace(/\n+/g, ''));
 };
 
-export { getIdFromUrl, getComments };
+const getVideoInfo = async id => {
+    const response = await service.videos.list({
+        part: [
+            'snippet',
+            'statistics'
+        ],
+        id,
+    })
+
+    return response.data.items[0];
+};
+
+export { getIdFromUrl, getComments, getVideoInfo };

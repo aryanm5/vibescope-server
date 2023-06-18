@@ -1,4 +1,4 @@
-import { getIdFromUrl, getComments } from '../services/youtube';
+import { getIdFromUrl, getComments, getVideoInfo } from '../services/youtube';
 import { parseRequest, success, error } from '../helpers/general';
 
 module.exports.analyze = async evt => {
@@ -24,5 +24,26 @@ module.exports.analyze = async evt => {
         return error(err);
     }
 
-    return success(comments);
+    //send comments to flask here
+
+    let video;
+    try {
+        video = await getVideoInfo(videoId);
+    } catch (err) {
+        console.error(err);
+        return error(err);
+    }
+
+    return success({
+        video: {
+            title: video.snippet.title,
+            publishedAt: video.snippet.publishedAt,
+            thumbnail: video.snippet.thumbnail.maxres,
+            channelTitle: video.snippet.channelTitle,
+            viewCount: video.statistics.viewCount,
+            likeCount: video.statistics.likeCount,
+            commentCount: video.statistics.commentCount,
+        },
+        comments,
+    });
 };
