@@ -1,5 +1,5 @@
-import { getIdFromUrl } from '../services/youtube';
-import { parseRequest, success, error } from '../../helpers/general';
+import { getIdFromUrl, getComments } from '../services/youtube';
+import { parseRequest, success, error } from '../helpers/general';
 
 module.exports.analyze = async evt => {
 
@@ -16,7 +16,13 @@ module.exports.analyze = async evt => {
 
     const videoId = getIdFromUrl(req.url);
 
-    
+    let comments;
+    try {
+        comments = await getComments(videoId);
+    } catch (err) {
+        console.error(err);
+        return error(err);
+    }
 
-    return success({ message: 'analyzed!' });
+    return success(comments);
 };

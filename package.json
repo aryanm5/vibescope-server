@@ -11,5 +11,9 @@
     "serverless-domain-manager": "^7.0.4",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
     "serverless-stage-manager": "^1.0.5"
+  },
+  "dependencies": {
+    "google-auth-library": "^8.8.0",
+    "googleapis": "^118.0.0"
   }
 }
