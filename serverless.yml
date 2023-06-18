@@ -17,6 +17,7 @@ provider:
   environment:
     STAGE: ${self:provider.stage}
     PASS: ${self:custom.env.pass}
+    YTKEY: ${self:custom.env.ytKey}
   iam: # permissions for functions
     role:
       statements:
