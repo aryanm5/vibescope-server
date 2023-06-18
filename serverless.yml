@@ -35,12 +35,6 @@ package:
     - README.md
 
 functions:
-  ping:
-    handler: src/handlers/ping.ping
-    events:
-      - httpApi:
-          path: /ping
-          method: get
   analyze:
     handler: src/handlers/analyze.analyze
     events:

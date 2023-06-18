@@ -2,4 +2,4 @@
 
 Hosted on AWS Lambda
 
-Uses Hume AI API for sentiment analysis of text
+Retrieves YouTube comments from video URL
